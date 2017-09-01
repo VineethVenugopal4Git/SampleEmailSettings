@@ -1,0 +1,111 @@
+<div>
+    <h1>Email Settings</h1>
+</div>
+
+    <div class="ui-grid-row">
+    <div class="ui-grid-col-12">
+        <p-panel header="Email" [toggleable]="true" >
+            <form [formGroup]="emailform" (ngSubmit)="onSubmit(emailform.value)">
+                <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Salutation: *:
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <input pInputText type="text" formControlName="salutation" placeholder="Required" />
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!emailform.controls['salutation'].valid&&emailform.controls['salutation'].dirty">
+                                <i class="fa fa-close"></i>
+                                Salutation is required
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                  
+                        <div class="ui-grid-col-2">
+                            Subject: *:
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <input pInputText type="text" formControlName="subject" placeholder="Required" />
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!emailform.controls['subject'].valid&&emailform.controls['subject'].dirty">
+                                <i class="fa fa-close"></i>
+                                Subject is required
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Description: *:
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <p-editor formControlName="description"  [style]="{'height':'160px'}">
+                                <p-header>
+                                    <span class="ql-formats">
+                                        <button class="ql-bold" aria-label="Bold"></button>
+                                        <button class="ql-italic" aria-label="Italic"></button>
+                                        <button class="ql-underline" aria-label="Underline"></button>
+                                    </span>
+                                </p-header>
+                            </p-editor>
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!emailform.controls['description'].valid&&emailform.controls['description'].dirty">
+                                <i class="fa fa-close"></i>
+                                <span *ngIf="emailform.controls['description'].errors['required']">Description is required</span>
+                                <span *ngIf="emailform.controls['description'].errors['minlength']">Must be longer than 6 characters</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2">
+                            Signature  *:
+                        </div>
+                        <div class="ui-grid-col-6">
+                            <input pInputText type="text" formControlName="signature" placeholder="Required - Min(6)" />
+                        </div>
+                        <div class="ui-grid-col-4">
+                            <div class="ui-message ui-messages-error ui-corner-all" *ngIf="!emailform.controls['signature'].valid&&emailform.controls['signature'].dirty">
+                                <i class="fa fa-close"></i>
+                                <span *ngIf="emailform.controls['signature'].errors['required']">Signature is required</span>
+                                <span *ngIf="emailform.controls['signature'].errors['minlength']">Must be longer than 6 characters</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2"></div>
+                        <div class="ui-grid-col-6">
+                            <button pButton type="submit" label="Submit" [disabled]="!emailform.valid"></button>
+                        </div>
+                        <div class="ui-grid-col-4"></div>
+                    </div>
+                    <div class="ui-grid-row">
+                        <div class="ui-grid-col-2"></div>
+                        <div class="ui-grid-col-6">
+                        </div>
+                        <div class="ui-grid-col-4"></div>
+                    </div>
+
+                </div>
+            </form>
+        </p-panel>
+    </div>
+        <div style="padding-top:20px;">
+            <p-dataTable [value]="templates" selectionMode="single" [paginator]="true" [responsive]="true" [rows]="10" [pageLinks]="3" [rowsPerPageOptions]="[5,10,20]" id="table"
+                         [lazy]="true" [totalRecords]="totalRecords" (onLazyLoad)="loadDataLazy($event)" datakey="indexNumber" rows="10">
+                <p-column field="Salutation" header="Salutation" [sortable]="true"></p-column>
+                <p-column field="Subject" header="Subject" [sortable]="true"></p-column>
+                <p-column field="Description" header="Description" [sortable]="true"></p-column>
+                <p-column header="Action">
+                    <template let-Ftps let-rowData="rowData" let-rowIndex="rowIndex" pTemplate type="body">
+                        <button type="button" class="btn btn-warning" (click)="edit(rowIndex)"><span class="fa fa-edit"></span> </button>
+                        <button type="button" class="btn btn-danger" (click)="delete(rowIndex)"><span class="fa fa-trash-o"></span> </button>
+                    </template>
+                </p-column>
+            </p-dataTable>
+        </div>
+</div>
