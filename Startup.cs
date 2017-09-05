@@ -56,13 +56,13 @@ namespace WebApplicationBasic
             }
 
             app.UseStaticFiles(
-                new StaticFileOptions
-                {
-                    FileProvider = new PhysicalFileProvider(
-                    Path.Combine(env.ContentRootPath, "node_modules")
-                ),
-                    RequestPath = "/" + "node_modules"
-                }
+                //new StaticFileOptions
+                //{
+                //    FileProvider = new PhysicalFileProvider(
+                //    Path.Combine(env.ContentRootPath, "node_modules")
+                //),
+                //    RequestPath = "/" + "node_modules"
+                //}
                 );
 
             app.UseMvc(routes =>

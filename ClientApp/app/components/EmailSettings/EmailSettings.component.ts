@@ -7,7 +7,7 @@ import { Email, IEmail } from '../../models/Email';
 import { ApiResponse } from '../../models/response';
 import { EmailTemplateService } from '../../service/EmailTemplate.service';
 import { Query } from "../../models/query";
-import { Quill } from 'quill/dist/quill'
+import { Quill } from 'quill/dist/quill';
 import { Subject } from 'rxjs/Subject';
 type Severities = 'success' | 'info' | 'warn' | 'error';
 

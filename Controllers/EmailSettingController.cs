@@ -10,8 +10,7 @@ using System.Linq.Expressions;
 
 namespace WebApplicationBasic.Controllers
 {
-    //[Produces("application/json")]
-    //[Route("api/[controller]")]
+
     public class EmailSettingController : Controller
     {
         private readonly IEmailSettings _emailRepo;
@@ -111,14 +110,11 @@ namespace WebApplicationBasic.Controllers
         {
             try
             {
-                if (_emailRepo.GetEmail(emailSettings.Id) != null)
+                var _emailTemplate = _emailRepo.GetEmail(emailSettings.Id);
+                if (_emailTemplate != null)
                 {
-                    var _emailTemplate = new EmailTemplate();
-                    _emailTemplate.Salutation = emailSettings.Salutation;
-                    _emailTemplate.Subject = emailSettings.Subject;
-                    _emailTemplate.Description = emailSettings.Description;
-                    _emailTemplate.Signature = emailSettings.Signature;
-                    _emailRepo.Delete(_emailTemplate);
+                    
+                   _emailRepo.Delete(_emailTemplate);
                     _emailRepo.commit(); 
                     return Ok(new { success = true, message = "Data was deleted" });
                 }
